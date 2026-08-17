@@ -1,145 +1,96 @@
-# ⚡ AI Gym & Fitness Assistant
-### Unlox Academy — Major Project | Shrijit Choudhari | B.Tech AI & ML, MIT-ADT University
+# AI Gym & Fitness Assistant
 
----
+### Major AI/ML Project
 
 ## 📌 Project Overview
-A unified AI-powered fitness ecosystem with 7 intelligent modules:
 
-| # | Module | Technology |
-|---|--------|-----------|
-| 1 | 🏋️ AI Gym Trainer | MediaPipe, OpenCV, Pose Detection |
-| 2 | 🥗 AI Dietician & Calorie Coach | NLP, BMI Calculation, Meal Planning |
-| 3 | 📡 Smart Gym Assistant | IoT Simulation, HR Zone Analysis |
-| 4 | 📊 AI Fitness Habit Tracker | Behavioral AI, Skip Prediction |
-| 5 | 🤖 Virtual Gym Buddy | Sentiment Analysis, Conversational AI |
-| 6 | 🎯 Pose-to-Performance Analyzer | Motion Efficiency, Performance Scoring |
-| 7 | 🗺️ Gym Recommender & Planner | Recommendation Engine, Challenge System |
+**AI Gym & Fitness Assistant** is an integrated AI-powered fitness platform designed to provide personalized workout guidance, nutrition planning, fitness tracking, and intelligent gym recommendations. The system combines **computer vision, machine learning, NLP, behavioral analytics, and recommendation systems** across seven core modules.
 
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React.js + Vite |
-| Backend | Python FastAPI |
-| AI/ML | MediaPipe, OpenCV, scikit-learn |
-| Conversational AI | Sentiment Analysis + Rule-based NLP |
-| Analytics | Custom scoring algorithms |
+| # | Module                              | Technology / Approach                    |
+| - | ----------------------------------- | ---------------------------------------- |
+| 1 | 🏋️ **AI Gym Trainer**              | MediaPipe, OpenCV, Pose Detection        |
+| 2 | 🥗 **AI Dietician & Calorie Coach** | NLP, BMI, TDEE & Meal Planning           |
+| 3 | 📡 **Smart Gym Assistant**          | IoT Simulation, Heart-Rate Zone Analysis |
+| 4 | 📊 **AI Fitness Habit Tracker**     | Behavioral Analytics, Skip Prediction    |
+| 5 | 🤖 **Virtual Gym Buddy**            | Sentiment Analysis, Conversational AI    |
+| 6 | 🎯 **Pose-to-Performance Analyzer** | Motion Analysis, Performance Scoring     |
+| 7 | 🗺️ **Gym Recommender & Planner**   | Recommendation Engine, Challenges        |
 
 ---
 
-## 🚀 Setup Instructions
+## 🛠️ Technology Stack
 
-### Step 1: Backend Setup
+| Layer                 | Technologies                                |
+| --------------------- | ------------------------------------------- |
+| **Frontend**          | React.js, Vite                              |
+| **Backend**           | Python, FastAPI                             |
+| **AI/ML**             | MediaPipe, OpenCV, scikit-learn             |
+| **Conversational AI** | NLP, Sentiment Analysis, Rule-Based Systems |
+| **Analytics**         | Custom Scoring & Behavioral Algorithms      |
+
+---
+
+## 🚀 Setup & Execution
+
+### Backend
 
 ```bash
-# Navigate to backend folder
 cd backend
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Start the FastAPI server
 uvicorn main:app --reload --port 8000
 ```
 
-Backend runs at: **http://localhost:8000**
-API Docs at: **http://localhost:8000/docs**
+Backend: **http://localhost:8000**
+API Documentation: **http://localhost:8000/docs**
 
----
-
-### Step 2: Frontend Setup
+### Frontend
 
 ```bash
-# Navigate to frontend folder
 cd frontend
-
-# Install Node dependencies
 npm install
-
-# Start the React app
 npm run dev
 ```
 
-Frontend runs at: **http://localhost:3000**
+Frontend: **http://localhost:3000**
 
-### Production Environment
+### Production
 
-Backend:
+Configure the required environment variables and run:
 
 ```bash
 cd backend
-cp .env.example .env
-# Set CORS_ALLOWED_ORIGINS to your deployed frontend URL.
 uvicorn main:app --host 0.0.0.0 --port "${PORT:-8000}"
 ```
 
-Frontend:
+For the frontend:
 
 ```bash
 cd frontend
-cp .env.example .env
-# Set VITE_API_BASE_URL to your deployed backend URL.
 npm ci
 npm run build
 ```
 
-Deploy the generated `frontend/dist` folder to your static host, and run the backend with the `backend/Procfile` command or equivalent.
+The generated `frontend/dist` directory can then be deployed to a static hosting service.
 
-The Gym Trainer module uses the bundled `backend/models/pose_landmarker_lite.task` MediaPipe model for live pose landmarks, form scoring, rep counting, and annotated visual feedback.
-
-### Windows Run Notes
-
-Use Python 3.11, 3.12, or 3.13 on Windows. Avoid Python 3.14 if MediaPipe wheels are not available for your machine yet.
-
-Backend PowerShell:
-
-```powershell
-cd "C:\path\to\AI-gym-fitness-main"
-py -3.12 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-pip install -r backend\requirements.txt
-$env:PYTHONPATH="backend"
-uvicorn main:app --host 127.0.0.1 --port 8017
-```
-
-Check trainer runtime:
-
-```powershell
-curl http://127.0.0.1:8017/api/gym-trainer/health
-```
-
-The response must show `"status":"ok"`, `"opencv":true`, `"mediapipe_available":true`, and `"model_present":true`.
-
-Frontend PowerShell:
-
-```powershell
-cd "C:\path\to\AI-gym-fitness-main\frontend"
-npm install
-$env:VITE_API_BASE_URL="http://127.0.0.1:8017"
-npm run dev -- --host 127.0.0.1 --port 3000
-```
+The **AI Gym Trainer** uses the bundled MediaPipe pose model to perform real-time pose landmark detection, exercise form analysis, repetition counting, and visual feedback.
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Architecture
 
-```
+```text
 ai-gym-fitness/
 ├── backend/
-│   ├── main.py                    # FastAPI entry point
-│   ├── requirements.txt           # Python dependencies
+│   ├── main.py
+│   ├── requirements.txt
 │   └── routers/
-│       ├── gym_trainer.py         # Module 1: Pose Detection
-│       ├── dietician.py           # Module 2: Diet Planning
-│       ├── smart_gym.py           # Module 3: IoT Monitoring
-│       ├── habit_tracker.py       # Module 4: Behavioral AI
-│       ├── virtual_buddy.py       # Module 5: Chat Companion
-│       ├── pose_analyzer.py       # Module 6: Performance Scoring
-│       └── gym_recommender.py     # Module 7: Recommendations
+│       ├── gym_trainer.py
+│       ├── dietician.py
+│       ├── smart_gym.py
+│       ├── habit_tracker.py
+│       ├── virtual_buddy.py
+│       ├── pose_analyzer.py
+│       └── gym_recommender.py
 │
 └── frontend/
     ├── package.json
@@ -147,8 +98,8 @@ ai-gym-fitness/
     ├── index.html
     └── src/
         ├── main.jsx
-        ├── App.jsx                # Main app with tab navigation
-        ├── App.css                # Dark fitness theme
+        ├── App.jsx
+        ├── App.css
         └── components/
             ├── GymTrainer.jsx
             ├── Dietician.jsx
@@ -161,57 +112,67 @@ ai-gym-fitness/
 
 ---
 
-## 🔗 API Endpoints Summary
+## 🔗 API Overview
 
 ### Module 1 — AI Gym Trainer
-- `POST /api/gym-trainer/analyze-frame` — Analyze pose from image
-- `POST /api/gym-trainer/generate-plan` — Generate workout plan
-- `GET  /api/gym-trainer/exercises` — List supported exercises
+
+* `POST /api/gym-trainer/analyze-frame` — Analyze exercise posture from an image
+* `POST /api/gym-trainer/generate-plan` — Generate a personalized workout plan
+* `GET /api/gym-trainer/exercises` — Retrieve supported exercises
 
 ### Module 2 — AI Dietician
-- `POST /api/dietician/diet-plan` — Get personalized diet plan
-- `POST /api/dietician/grocery-list` — Get weekly grocery list
-- `POST /api/dietician/track-meal` — Log and analyze a meal
+
+* `POST /api/dietician/diet-plan` — Generate a personalized diet plan
+* `POST /api/dietician/grocery-list` — Generate a weekly grocery list
+* `POST /api/dietician/track-meal` — Log and analyze meals
 
 ### Module 3 — Smart Gym
-- `POST /api/smart-gym/monitor` — Monitor IoT sensor data
-- `POST /api/smart-gym/adjust-resistance` — Auto-adjust resistance
-- `GET  /api/smart-gym/equipment-status` — Check equipment availability
+
+* `POST /api/smart-gym/monitor` — Process simulated gym sensor data
+* `POST /api/smart-gym/adjust-resistance` — Dynamically adjust equipment resistance
+* `GET /api/smart-gym/equipment-status` — Check equipment status
 
 ### Module 4 — Habit Tracker
-- `POST /api/habit-tracker/predict-skip` — Predict skip risk
-- `POST /api/habit-tracker/log-workout` — Log workout
-- `GET  /api/habit-tracker/leaderboard/weekly` — Get leaderboard
 
-### Module 5 — Virtual Buddy
-- `POST /api/virtual-buddy/chat` — Chat with AI buddy
-- `POST /api/virtual-buddy/analyze-emotion` — Emotion detection
-- `GET  /api/virtual-buddy/daily-quote` — Daily motivation quote
+* `POST /api/habit-tracker/predict-skip` — Estimate workout skip probability
+* `POST /api/habit-tracker/log-workout` — Record completed workouts
+* `GET /api/habit-tracker/leaderboard/weekly` — Retrieve weekly rankings
+
+### Module 5 — Virtual Gym Buddy
+
+* `POST /api/virtual-buddy/chat` — Interact with the AI fitness companion
+* `POST /api/virtual-buddy/analyze-emotion` — Analyze user sentiment/emotion
+* `GET /api/virtual-buddy/daily-quote` — Retrieve motivational content
 
 ### Module 6 — Pose Analyzer
-- `POST /api/pose-analyzer/analyze-session` — Score a session
-- `POST /api/pose-analyzer/weekly-performance` — Weekly report
-- `GET  /api/pose-analyzer/efficiency-tips/{exercise}` — Form tips
+
+* `POST /api/pose-analyzer/analyze-session` — Evaluate workout performance
+* `POST /api/pose-analyzer/weekly-performance` — Generate weekly performance reports
+* `GET /api/pose-analyzer/efficiency-tips/{exercise}` — Provide exercise-specific tips
 
 ### Module 7 — Gym Recommender
-- `POST /api/gym-recommender/recommend-gyms` — Find nearby gyms
-- `POST /api/gym-recommender/recommend-program` — Get a program
-- `GET  /api/gym-recommender/challenges` — Browse challenges
+
+* `POST /api/gym-recommender/recommend-gyms` — Recommend suitable gyms
+* `POST /api/gym-recommender/recommend-program` — Recommend fitness programs
+* `GET /api/gym-recommender/challenges` — Retrieve available fitness challenges
 
 ---
 
-## 📊 Deliverables Completed
+## 📊 Project Deliverables
 
-- [x] Module 1: AI Gym Trainer with MediaPipe pose detection
-- [x] Module 2: AI Dietician with BMI, TDEE, and meal planning
-- [x] Module 3: Smart Gym IoT integration and HR zone monitoring
-- [x] Module 4: Behavioral AI for habit tracking and skip prediction
-- [x] Module 5: Virtual Gym Buddy with sentiment analysis
-- [x] Module 6: Pose-to-Performance Analyzer with grading system
-- [x] Module 7: Gym Recommender with programs and challenges
-- [x] React Frontend Dashboard with all 7 modules
-- [x] FastAPI Backend with full REST API
+* ✅ AI Gym Trainer using MediaPipe pose detection
+* ✅ AI Dietician with BMI, TDEE, and meal planning
+* ✅ Smart Gym simulation with IoT and heart-rate monitoring
+* ✅ Behavioral AI-based workout habit tracker
+* ✅ Virtual Gym Buddy with sentiment analysis
+* ✅ Pose-based workout performance evaluation
+* ✅ Gym and fitness-program recommendation system
+* ✅ Interactive React fitness dashboard
+* ✅ FastAPI backend with RESTful APIs
 
 ---
 
-*Submitted by: Shrijit choudhari | Unlox Academy AI/ML Internship | MIT-ADT University, Pune*
+
+**Made by Rakshit Swami**
+**Indian Institute of Technology Bombay (IIT Bombay)**
+**AI/ML Project**
